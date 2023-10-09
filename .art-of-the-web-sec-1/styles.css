@@ -1,0 +1,56 @@
+.stonebricks:hover {
+    background-image: url("stonebricks.jpg");
+}
+
+.top-padding-large {
+    padding-top: 2000px;
+}
+
+#hardHat {
+    transform: translate(0px, 40px);
+    z-index: 1;
+}
+
+.z-10 {
+    z-index: 10;
+}
+
+.floor {
+    width: 32%;
+    height: 40.2vh;
+    transform: translate(0, -110px) perspective(200px) rotateX(30deg);
+}
+
+.walls {
+    height: 480px
+}
+
+.trapezoid {
+    transform: translate(0,-12px) perspective(200px) rotateX(45deg);
+}
+
+#workerOnLift {
+    width: 60px;
+    transform: translate(100px, 50px);
+    z-index: -1;
+}
+
+#creeperInside {
+    animation: flash 2s infinite;
+}
+
+@keyframes flash {
+    0% {
+        opacity: 0%;
+    }
+    50% {
+        opacity: 100%;
+    }
+    100% {
+        opacity: 0%;
+    }
+}
+
+#hole {
+    transform: rotate(55deg)
+}
