@@ -1,0 +1,134 @@
+.body {
+    overflow: hidden;
+    height: 100vh;
+}
+
+.base {
+    transform: translate(0, 100vh);
+}
+
+.tall {
+    width: 12vh;
+}
+
+#neckBase {
+    transform: translate(0, -12vh);
+    transform-origin: bottom center;
+    animation: swing 5s ease-in-out alternate infinite;
+    transition: animation-duration 1s;
+}
+
+#neck {
+    transform: translate(0, -12vh);
+    transform-origin: bottom center;
+    animation: swing 4s ease-in-out -3.42s alternate infinite
+}
+
+#neckUpper {
+    transform: translate(0, -12vh);
+    transform-origin: bottom center;
+    animation: swing 3.5s ease-in-out -4.42s alternate infinite
+}
+
+#connector { 
+
+    transform: translate(0,-12vh);
+    transform-origin: bottom center;
+    animation: swing2 2.9s ease-in-out -1.2s alternate infinite;
+}
+
+#head {
+    transform: translate(0,-12vh);
+    transform-origin: left center;
+    animation: swing 2.9s ease-in-out -1.2s alternate infinite;
+}
+
+#jaw {
+    transform: translate(0, 12vh);
+    transform-origin: top left;
+    animation: chomps 1s ease alternate infinite
+}
+
+#connector {
+    transform: translate(0, -12vh);
+}
+
+@keyframes swing {
+    from {transform: 
+        translate(0, -16vh)
+            rotate(30deg);}
+    to {transform: 
+        translate(0, -16vh)
+            rotate(-30deg);}
+}
+
+@keyframes swing2 {
+    from {transform: 
+        translate(0, -16vh)
+            rotate(50deg)
+            scale(1, 0.6);}
+    to {transform: 
+        translate(0, -16vh)
+            rotate(-10deg);}
+}
+
+@keyframes chomps {
+    from {transform: 
+        translate(3rem)
+        rotate(10deg)
+        translate(-3rem)
+        translate(7rem, 6rem)
+            ;}
+    to {transform: 
+        rotate(0deg)
+        translate(7rem, 6rem)
+            ;}
+}
+
+#meat:hover ~#neckBase > #neck > #neckUpper > #headWrapper  {
+    transform: translate(8rem, 8rem) rotate(-90deg);
+    
+    transform-origin: right center;
+    background-color: aquamarine;
+}
+
+#meat:hover ~#neckBase > #neck > #neckUpper > #headWrapper > #head > #jaw {
+    animation: chomps 0.4s ease alternate infinite;
+}
+
+#meat:hover ~ img {
+    animation: fall 2s ease infinite
+}
+
+#headWrapper {
+    transform: translate(-130px, -50px);
+    transition: translate 1s;
+}
+
+#head:hover > #headPic {
+    opacity: 0;
+}
+
+
+#meat {
+    bottom: 10%;
+    right: 10%;
+}
+
+#steaks {
+    left: 37%;
+    opacity: 0;
+    top:0
+    
+}
+
+@keyframes fall {
+    from {
+        transform: translate(0, -125vh);
+        opacity: 0;
+    }
+    to {
+        transform: translate(0, -100vh);
+        opacity:1;
+    }
+}
