@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiral Buttons</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .background {
+            background-image: url("spiral.png");
+            background-size: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            transform: scale(2.2,2.2)
+        }
+
+        .container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button {
+            position: absolute;
+            border: none;
+            border-radius: 50%;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .button:hover {
+            background-color: #eee;
+        }
+
+        .button-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .text-box {
+            display: none; 
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-radius: 5px;
+            z-index: 1;
+        }
+
+        .large-text {
+            font-size: xx-large;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <div class="button-container">
+            <button class="button r1">Reading 1</button>
+            <button class="button r2">Reading 2</button>
+            <button class="button large-text"><a href="https://codepen.io/terskayl/pen/RwEgrWy">🥱</a></button>
+            <button class="button r3">Reading 3</button>
+            <button class="button r4">Reading 4</button>
+            <button class="button large-text"><a href="https://codepen.io/terskayl/pen/rNomejr">🐷</a></button>
+            <button class="button r5">Reading 5</button>
+            <button class="button large-text"><a href="https://terskayl.github.io/castle/index.html">🏰</a></button>
+            <button class="button r6">Reading 6</button>
+            <button class="button large-text"><a href="https://terskayl.github.io/castle/index.html">💍</a></button>
+            <button class="button r7">Reading 7</button>
+            <button class="button large-text"><a href="https://editor.p5js.org/aajiang/sketches/4rtM7CXXp">🕒</a></button>
+            <button class="button r8">Reading 8</button>
+            <button class="button large-text"><a href="https://terskayl.github.io/s2a2/">🐉</a></button>
+            <button class="button r9">Reading 9</button>
+            <button class="button r10">Reading 10</button>
+            <button class="button large-text"><a href="https://balance-s3a1-3f38dc07adcd.herokuapp.com/">⚖️</a></button>
+            <button class="button r11">Reading 11</button>
+            <button class="button large-text"><a href="https://terskayl.github.io/s3a2/">📧</a></button>
+            <button class="button r12">Reading 12</button>
+            <button class="button large-text"><a href="https://editor.p5js.org/aajiang/full/OyjsNlhOE">🗺️</a></button>
+            <button class="button">&nbsp;&nbsp;Scroll&nbsp;&nbsp; Me!</button>
+        </div>
+        <div class="text-box">This is the floating text box</div>
+    </div>
+
+    <script>
+        const buttonContainer = document.querySelector('.button-container');
+        const buttons = document.querySelectorAll('.button');
+        
+        for (let i = 0; i < buttons.length; i++) {
+            const button = buttons[i];
+
+            let x = -0.5 * button.offsetWidth;
+            let y = -0.5 * button.offsetHeight;
+
+            button.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        const background = document.querySelector('.background');
+        let offset = -0.5 * window.innerWidth + 0.5 * window.innerHeight;
+        background.style.backgroundPosition = `0px, ${offset}px`;
+
+        let angle = 0;
+        let radius = 0;
+
+        window.addEventListener('wheel', (event) => {
+            event.preventDefault();
+            const deltaY = event.deltaY * 0.1;
+            angle += 0.1 * deltaY;
+            radius += 7.2 * deltaY;
+            radius = Math.max(radius, -20);
+            background.style.transform = `rotate(${20*angle}deg) scale(2.2,2.2)`;
+            for (let i = 0; i < buttons.length; i++) {
+                const button = buttons[i];
+
+                let x = Math.cos(angle + i * Math.PI * 3 / 10) * Math.max(radius - 150*i, 0);
+                let y = Math.sin(angle + i * Math.PI * 3 / 10) * Math.max(radius - 150*i, 0);
+
+                x -= 0.5 * button.offsetWidth;
+                y -= 0.5 * button.offsetHeight;
+
+                button.style.transform = `translate(${x}px, ${y}px)`;
+            }
+        });
+
+        const r1 = document.querySelector(".r1");
+
+        r1.addEventListener("mouseover", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.textContent = "This is a very dense passage. One thing that caught me up was whether the purpose of the \"mail\" in mail art was as support or as the medium. I am not really sure what the difference between these two things are, but Carrion insists that the mail is not the medium and just the support, except in the case where some aspects of the process (like stamps and stuff) are used, in which case it is indeed an aspect of the medium. When Carrion listed the post office and the post stamps and the clerks, it really struck me that the medium has nothing to do with the message. Because what I would have expected when I heard mail art was art leveraging the themes associated with mail — interconnectedness, globalization, and efficiency, within the mail system to convey a story or message. It's a different way of presentation after all. So I believe the difference between support and medium that Carrion is trying to convey is that support can support the message of the piece, whereas medium is only the physicality of the piece. \n \n Additionally, I am still a bit unsure about what the \"big monster\" Carrion refers to. I feel like it might be something along the sentiment of \"sticking it to the man\", or simply the rebellious attitude people may have been exploring new things away from the norm."
+            textBox.style.display = "block"; /* Show the text box on hover */
+        });
+
+        r1.addEventListener("mouseout", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.style.display = "none"; /* Hide the text box on mouseout */
+        });
+
+        const r2 = document.querySelector(".r2");
+
+        r2.addEventListener("mouseover", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.textContent = " How to use the Internet Mindfully is a piece about the purpose of websites. I agree with its claim that many website conventions just follow big tech companies who are profit-driven and do not have the best interest of website builders and viewers at heart. I like the series of metaphors Schwulst uses to describe the broad applications of websites, especially as a thrown rock that's now falling into the ocean, as that is a legitimate view to view website building that many people don't think about. The talking sparrows also impressed me because is they really utilize the juxtaposition between the tech and nature, that really hits a sweet spot in my brain. \n \n Creative Independent is about thinking non-linearly. I found the part where Édouard U. explains that he reads multiple books at a time, all continuously, admirable, but I don't think I would be able to handle it myself. There is a joke about the younger generations in that we have lower attention spans and can't focus on single things at a time, and I think reading in this fashion would exacerbate that. I do find it valuable connect disperate ideas, because that is one of the best ways to find new ideas, so I agree with the premise of this passage."
+            textBox.style.display = "block"; /* Show the text box on hover */
+        });
+
+        r2.addEventListener("mouseout", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.style.display = "none"; /* Hide the text box on mouseout */
+        });
+
+        const r3 = document.querySelector(".r3");
+
+        r3.addEventListener("mouseover", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.textContent = " This conclusion by Ludovico summarizes the state of print work after the introduction and growth of digital publications. One observation he made that I think is still true is that print work has shifted more to collectible/valuable markets, for more special occasions. I also find it interesting how he described a possible future where networked printers share print work similar to how digital work is shared on the internet. I don't think this really caught on as people don't really fax anymore. \n\n Some highlights from the appendix I thought were interesting include: fire damage in print is file corruption in digital. There is an interesting juxtaposition between the abruptness and visibility of fire compared to the much more hidden and insidious ways digital work is lost slowly through time. Also I liked readership versus unique viewers. Unique viewers sound infinitely more corporate or profit-focused but unique does have to be there because views may come from the same people. \n\nAlso I liked that the afterward ended with \"if print is indeed liberating, then start by sharing this book\", which has a sense of irony given we have been shared snippets of this book digitally."
+            textBox.style.display = "block"; /* Show the text box on hover */
+        });
+
+        r3.addEventListener("mouseout", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.style.display = "none"; /* Hide the text box on mouseout */
+        });
+
+        const r4 = document.querySelector(".r4");
+
+        r4.addEventListener("mouseover", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.textContent = " The passage today talks about the history of Geocities, and what we can learn from them now that they are shut down but archived. Geocities is really the centerpiece of the amateur web, and it is inspiring to see communities pop up here that feel more organic and less corporate, compared to when people started moving to big social media platforms to share their stuff. The author helped with the archival effort of Geocities, and mentioned that Yahoo shutting down the service was both a blessing and curse because a lot of content was lost, but, a lot was also archived, freezing them as snapshots of the early web. These websites that remain belongs to their time, with the example given to differentiate being that their jpegs were not just rez, but physically smaller than the images we see on web today because of the unique storage limitations."
+            textBox.style.display = "block"; /* Show the text box on hover */
+        });
+
+        r4.addEventListener("mouseout", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.style.display = "none"; /* Hide the text box on mouseout */
+        });
+
+        const r5 = document.querySelector(".r5");
+
+        r5.addEventListener("mouseover", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.textContent = " In Dispersion, Seth Price writes how the dispersion of art can be seen as more \"art\" than the material present. We first get introduced to Conceptualism as a movement, which is described as a movement blending art with other fields, mostly philosophy, and how that may cause pieces to require more context to be seen as art. Price writes about how modern pieces, taken out of a museum, could be reasonably interpreted as non-art, and so their context is what makes them art, especially considering the philosophical connection conceptualism relies on. He compares this to the internet as another method of dispersal, and examples how the spread of certain non-art material, like the propaganda of the \"Daniel Pearl Video\", is spread organically and artistically, without control by government or corporation, between people and between conversations. I also find interesting his comparison of art to science due to its reliance on journals and conferences, centralized places where context is given to pieces to be dispersed to the general populace."
+            textBox.style.display = "block"; /* Show the text box on hover */
+        });
+
+        r5.addEventListener("mouseout", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.style.display = "none"; /* Hide the text box on mouseout */
+        });
+        
+        const r6 = document.querySelector(".r6");
+
+        r6.addEventListener("mouseover", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.textContent = "These authors wrote this workbook to get alt-text more into the conversation of artists. I agree with their points that organizations might listen to their artists more than their own access workers and so agree that artists themselves can make a big impact by packaging alt text with their other metadata in order to create a more accessible enviornment that people can equitably access. I feel small actions can easily bring the concept of alt-text into the conversation for a very large number of people, for example, I believe Visual Studio Code auto-populates img tags with src=\"\" and alt=\"\", which makes it much more likely for programmers to add alt text when making a site because it is already typed for you. I also appreciate how descriptions of images can contribute and be just as part of the viewing process as the image itself, through poetic licence. It is important to also note that subjectivity isn't a bad thing necessarily when describing alt-text because objectivity is very amorphous, and you do want to convey the purpose of the image on the site."
+            textBox.style.display = "block"; /* Show the text box on hover */
+        });
+
+        r6.addEventListener("mouseout", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.style.display = "none"; /* Hide the text box on mouseout */
+        });
+
+        const r7 = document.querySelector(".r7");
+
+        r7.addEventListener("mouseover", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.textContent = "In New Modernisms, Duvall defines and writes about postmodernism and hypermodernism. Graphic design focuses on the communication of signs using surfaces like text or color or pixels. In the modern style, the focus was on clarity of message, a so-called crystal goblet, but what postmodernism brings is more of a focus on the system of messaging itself, of what a sign is. Hypermodernism brings signifiers, being past art, into public consciousness by having them be signifiers themselves. The examine Duvall gives is that of Mickey Mouse, who was originally created to represent a just a mouse for the purpose of a cartoon, but has gained meaning to the public over its lifespan, such as being a symbol of resistance in Nazi Germany. The simplicity of these icons, produced when clarity was the main focus, and their strong geometric shapes, lead them easy to be remixed and questioned under hypermodernism."
+            textBox.style.display = "block"; /* Show the text box on hover */
+        });
+
+        r7.addEventListener("mouseout", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.style.display = "none"; /* Hide the text box on mouseout */
+        });
+
+        const r8 = document.querySelector(".r8");
+
+        r8.addEventListener("mouseover", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.textContent = " String Games is a very important piece of performance art because it was one of the first to be broadcast using a network like the internet. It was ahead of it's time techologically, and it utilized improvisation in a way that was spontaneous, with the participants memorizing a few positions of cat's cradle, but not all, so that a sequence could organically appear during the actually performance. This creates a nice juxtapose with the fact that it's live streamed, because the fact that it's live means that mistakes can be made and broadcast, and the participants are performing at exactly the time of watching, giving a intimacy that is unique to live art, but dispersed across the net. Body Missing was also an interesting website to learn about because there is a big time different between the two works, but Body Mising still focusing on the ways history and art can be preserved, which is a different focus, but using similar or the same material as String Games."
+            textBox.style.display = "block"; /* Show the text box on hover */
+        });
+
+        r8.addEventListener("mouseout", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.style.display = "none"; /* Hide the text box on mouseout */
+        });
+
+        const r9 = document.querySelector(".r9");
+
+        r9.addEventListener("mouseover", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.textContent = " String Games is a very important piece of performance art because it was one of the first to be broadcast using a network like the internet. It was ahead of it's time techologically, and it utilized improvisation in a way that was spontaneous, with the participants memorizing a few positions of cat's cradle, but not all, so that a sequence could organically appear during the actually performance. This creates a nice juxtapose with the fact that it's live streamed, because the fact that it's live means that mistakes can be made and broadcast, and the participants are performing at exactly the time of watching, giving a intimacy that is unique to live art, but dispersed across the net. Body Missing was also an interesting website to learn about because there is a big time different between the two works, but Body Mising still focusing on the ways history and art can be preserved, which is a different focus, but using similar or the same material as String Games."
+            textBox.style.display = "block"; /* Show the text box on hover */
+        });
+
+        r9.addEventListener("mouseout", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.style.display = "none"; /* Hide the text box on mouseout */
+        });
+
+        const r10 = document.querySelector(".r10");
+
+        r10.addEventListener("mouseover", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.textContent = " Posting is indeed essential for a work to be placed in the public, which is definitely part of being an artist. I liked the comparison of posting to the old town criers, and the even the origin of having message boards in the forum to post notices on. With the digital age, there are ways to broadcast media that are not simply discrete posts. Soulellis brings up twitch streams, which is a phenomenon only possible in the digital age, where the content is more diluted, but value is gained simply because it has a lot of eyes on it at once. There is a certain kind of hive mind when watching a live broadcast in that sense. Publishing is no longer just in discrete packages, but as he said, like layers providing a smooth flow of information and data out into the world. It is also less manual, as work can be delegated to bots to change and alter, and even create publications."
+            textBox.style.display = "block"; /* Show the text box on hover */
+        });
+
+        r10.addEventListener("mouseout", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.style.display = "none"; /* Hide the text box on mouseout */
+        });
+
+        const r11 = document.querySelector(".r11");
+
+        r11.addEventListener("mouseover", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.textContent = "I really enjoyed this reading. I liked the style that they presented the piece in. It is very Philly-pilled, actually, talking both about both ENIAC, which is on campus, and Levittown, which I am not sure about the one near here, but I remember the original one in Long Island was like a whites-only suburb area planned and created by a Levitt. The Way is really prominent in computer use because of how the Internet has become centralized with just a few key players. That sometimes leads to narratives that don't tell the full story. With history in particular, in many places on the Internet, sources only focus on one version of what is happening, even if it is not the correct version. Spending more time in community definitely mitigates this."
+            textBox.style.display = "block"; /* Show the text box on hover */
+        });
+
+        r11.addEventListener("mouseout", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.style.display = "none"; /* Hide the text box on mouseout */
+        });
+
+        const r12 = document.querySelector(".r12");
+
+        r12.addEventListener("mouseover", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.textContent = "In game theory, there is definitely a large limit on the possible action space in most models that prevent the most unlikely and ineffective actions from being possible to model simply because including them all would be too large. This results in a lot of crapstraction which is a key failing point of many models. In the same way, the though that art is beautiful only if people think it is beautiful is its own crapstraction that ignores a lot of the potential ways a piece can impact others. These games also affect the real world, whether through targeted advertising or social credit scores."
+            textBox.style.display = "block"; /* Show the text box on hover */
+        });
+
+        r12.addEventListener("mouseout", () => {
+            const textBox = document.querySelector(".text-box");
+            textBox.style.display = "none"; /* Hide the text box on mouseout */
+        });
+    </script>
+</body>
+</html>
